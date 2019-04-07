@@ -21,9 +21,25 @@ $(function() {
 //look for click of button and use correct information for button
 $(document).on('click', '.btnSearch', function() {
     var btnData = $(this).data('type');
-}) 
 
 //connect to giphy api to call back giphys being searched. Want info return off the gif and the rating + click event for buttons
+    var queryURL = 'https://api.giphy.com/v1/gifs/search?q=' + btnData + '&api_key=BSR1RzgdOrIU2fXc11rAqiIMuKDNs19y&limit=5';
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    })
+        .then(function(response) {
+            for (var i=0; i < response.data.length; i++);
+                 var search = $('<div>');
+                 var p = $('<p>').text("Rating: " + response.data[i].rating);
+                 var funimage = $('<img>');
+                 funaimage.attr('src', response.data[i].images.fixed_height.url);
+                 search.append(p);
+                 search.append(funimage);
+                 $('#giphys').append(search);
+
+        })
+    }) 
 
 //implement search function to add buttons into the search array
 
