@@ -17,7 +17,13 @@ $(function() {
     createButtons(searchGiphy, 'btnSearch', "#button");
 })
 
-//connect to giphy api to call back giphys being searched. Want info return off the gif and the rating
+
+//look for click of button and use correct information for button
+$(document).on('click', '.btnSearch', function() {
+    var btnData = $(this).data('type');
+}) 
+
+//connect to giphy api to call back giphys being searched. Want info return off the gif and the rating + click event for buttons
 
 //implement search function to add buttons into the search array
 
