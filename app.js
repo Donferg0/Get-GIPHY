@@ -29,14 +29,16 @@ $(document).on('click', '.btnSearch', function() {
     var queryURL = 'https://api.giphy.com/v1/gifs/search?q=' + btnData + '&api_key=BSR1RzgdOrIU2fXc11rAqiIMuKDNs19y&limit=5';
     $.ajax({
         url: queryURL,
-        method: "GET"
+        method: "GET",
     })
+
         .then(function(response) {
             for (var i=0; i < response.data.length; i++) {
                  var search = $('<div>');
                  var p = $('<p>').text("Rating: " + response.data[i].rating);
                  var funimage = $('<img>');
                  funimage.attr('src', response.data[i].images.fixed_height.url);
+                 funimage.attr('src', response.data[i].images.fixed_height_still.url)
                  search.append(funimage);
                  search.append(p);
                  $('#giphys').append(search);
@@ -49,11 +51,14 @@ $(document).on('click', '.btnSearch', function() {
 $('#submit').on('click', function(event) {
     event.preventDefault()
     var formSubmit = $('#search-info').val();
-    searchGiphy.push(formSubmit);
-    createButtons(searchGiphy, "btnSearch", "#button");
-    $('search-info').text.empty()
+    console.log(formSubmit)
+    if (event === null) {
+        alert("Please enter a search"); }
 
-})
-//Have giphy on screen still image, and when clicked it will animate
+        else {
+            searchGiphy.push(formSubmit);
+            createButtons(searchGiphy, "btnSearch", "#button");
+            $('#search-info').val("");
 
-//
+        }
+    })
