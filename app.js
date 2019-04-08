@@ -14,7 +14,7 @@ function createButtons(searchGiphy, classAdd, areaAdd) {
     }
 }
 $(function() {
-    createButtons(searchGiphy, 'btnSearch', "#button");
+    createButtons(searchGiphy, "btnSearch", "#button");
 })
 
 
@@ -37,8 +37,8 @@ $(document).on('click', '.btnSearch', function() {
                  var p = $('<p>').text("Rating: " + response.data[i].rating);
                  var funimage = $('<img>');
                  funimage.attr('src', response.data[i].images.fixed_height.url);
-                 search.append(p);
                  search.append(funimage);
+                 search.append(p);
                  $('#giphys').append(search);
             }
 
@@ -46,7 +46,9 @@ $(document).on('click', '.btnSearch', function() {
     }) 
 
 //implement search function to add buttons into the search array
-
+$('#submit').on('click', function() {
+    var formSubmit = $('#search-info').val();
+})
 //Have giphy on screen still image, and when clicked it will animate
 
 //
