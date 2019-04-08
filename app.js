@@ -46,8 +46,13 @@ $(document).on('click', '.btnSearch', function() {
     }) 
 
 //implement search function to add buttons into the search array
-$('#submit').on('click', function() {
+$('#submit').on('click', function(event) {
+    event.preventDefault()
     var formSubmit = $('#search-info').val();
+    searchGiphy.push(formSubmit);
+    createButtons(searchGiphy, "btnSearch", "#button");
+    $('search-info').text.empty()
+
 })
 //Have giphy on screen still image, and when clicked it will animate
 
