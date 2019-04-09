@@ -26,7 +26,7 @@ $(document).on('click', '.btnSearch', function() {
     var btnData = $(this).data('type');
 
 //connect to giphy api to call back giphys being searched. Want info return off the gif and the rating + click event for buttons
-    var queryURL = 'https://api.giphy.com/v1/gifs/search?q=' + btnData + '&api_key=BSR1RzgdOrIU2fXc11rAqiIMuKDNs19y&limit=5';
+    var queryURL = 'https://api.giphy.com/v1/gifs/search?q=' + btnData + '&api_key=BSR1RzgdOrIU2fXc11rAqiIMuKDNs19y&limit=10';
     $.ajax({
         url: queryURL,
         method: "GET",
@@ -36,10 +36,12 @@ $(document).on('click', '.btnSearch', function() {
             for (var i=0; i < response.data.length; i++) {
                  var search = $('<div>');
                  var p = $('<p>').text("Rating: " + response.data[i].rating);
-                 var funimage = $('<img>');
-                 funimage.attr('src', response.data[i].images.fixed_height.url);
-                 funimage.attr('src', response.data[i].images.fixed_height_still.url)
-                 search.append(funimage);
+                 var giphy = $('<img>');
+                 giphy.addClass("pics")
+                 giphy.attr('src', response.data[i].images.fixed_height_still.url)
+                 giphy.attr('data-still', response.data[i].images.fixed_height_still.url)
+                 giphy.attr('data-animate', response.data[i].images.fixed_height.url);
+                 search.append(giphy);
                  search.append(p);
                  $('#giphys').append(search);
             }
@@ -47,12 +49,23 @@ $(document).on('click', '.btnSearch', function() {
         })
     }) 
 
+$(document).on("click", ".pics", function() {
+    var state = $(this).attr('data-state');
+    if (state === 'still') {
+        $(this).attr('src', $(this).attr('data-animate'));
+        $(this).attr('data-state', 'animate');
+    } else {
+        $(this).attr('src', $(this).attr('data-still'));
+        $(this).attr('data-state', 'still');
+    }
+})
+
 //implement search function to add buttons into the search array
 $('#submit').on('click', function(event) {
     event.preventDefault()
-    var formSubmit = $('#search-info').val();
+    var formSubmit = $('#search-info').val().trim();
     console.log(formSubmit)
-    if (event === null) {
+    if (formSubmit === "") {
         alert("Please enter a search"); }
 
         else {
