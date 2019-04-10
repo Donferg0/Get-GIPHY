@@ -1,6 +1,6 @@
 
 //create an array for giphy searches
-var searchGiphy = ["the simpsons", "rocket power", "naruto", "bungo stray dogs"];
+var searchGiphy = ["the simpsons", "rocket power", "meme", "no time for dat"];
 
 //create buttons that users can click for desiered giphy reponse
 function createButtons(searchGiphy, classAdd, areaAdd) {
@@ -22,7 +22,6 @@ $(function() {
 $(document).on('click', '.btnSearch', function() {
     //delete previous gifs from screen when new search is clicked
     $('#giphys').empty();
-
     var btnData = $(this).data('type');
 
 //connect to giphy api to call back giphys being searched. Want info return off the gif and the rating + click event for buttons
@@ -33,14 +32,16 @@ $(document).on('click', '.btnSearch', function() {
     })
 
         .then(function(response) {
-            for (var i=0; i < response.data.length; i++) {
+            console.log(response)
+            var gif = response.data;
+            for (var i=0; i < gif.length; i++) {
                  var search = $('<div>');
-                 var p = $('<p>').text("Rating: " + response.data[i].rating);
+                 var p = $('<p>').text("Rating: " + gif[i].rating);
                  var giphy = $('<img>');
                  giphy.addClass("pics")
-                 giphy.attr('src', response.data[i].images.fixed_height_still.url)
-                 giphy.attr('data-still', response.data[i].images.fixed_height_still.url)
-                 giphy.attr('data-animate', response.data[i].images.fixed_height.url);
+                 giphy.attr('src', gif[i].images.fixed_height_still.url)
+                 giphy.attr('data-still', gif[i].images.fixed_height_still.url)
+                 giphy.attr('data-animate', gif[i].images.fixed_height.url);
                  search.append(giphy);
                  search.append(p);
                  $('#giphys').append(search);
