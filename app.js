@@ -42,6 +42,7 @@ $(document).on('click', '.btnSearch', function() {
                  giphy.attr('src', gif[i].images.fixed_height_still.url)
                  giphy.attr('data-still', gif[i].images.fixed_height_still.url)
                  giphy.attr('data-animate', gif[i].images.fixed_height.url);
+                 giphy.attr('data-state', 'still')
                  search.append(giphy);
                  search.append(p);
                  $('#giphys').append(search);
